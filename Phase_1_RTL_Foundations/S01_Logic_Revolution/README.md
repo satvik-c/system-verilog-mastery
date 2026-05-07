@@ -27,9 +27,9 @@
 
 | File | Description |
 |------|-------------|
-| `multi_driver.sv` / `tb_multi_driver.sv` | Demonstrates compile-time rejection of multiple drivers on `logic` vs. silent `X` resolution on `wire` |
-| `x_prop.sv` / `tb_x_prop.sv` | Traces `X` propagation through AND, OR, and chained logic with predicted vs. observed outputs |
-| `float_demo.sv` / `tb_float_demo.sv` | Compares undriven `wire` (`Z`) vs. incomplete `always_comb` assignment (latch inference); Verilator warns on missing `else` |
+| `multi_driver.sv` / `multi_driver_tb.sv` | Demonstrates compile-time rejection of multiple drivers on `logic` vs. silent `X` resolution on `wire` |
+| `x_prop.sv` / `x_prop_tb.sv` | Traces `X` propagation through AND, OR, and chained logic with predicted vs. observed outputs |
+| `float_demo.sv` / `float_demo_tb.sv` | Compares undriven `wire` (`Z`) vs. incomplete `always_comb` assignment (latch inference); Verilator warns on missing `else` |
 
 ## Tools Used
 - **Verilator**: `--lint-only -Wall` for compile-time lint (multiple-driver detection, latch warnings)
