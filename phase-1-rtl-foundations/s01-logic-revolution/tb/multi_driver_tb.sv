@@ -3,7 +3,8 @@
 module multi_driver_tb();
 
     logic a, b;
-    logic y_wire, y_logic;
+    wire y_wire;
+    logic y_logic;
 
     // Device Under Test
     multi_driver dut (
