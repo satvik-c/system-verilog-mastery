@@ -20,7 +20,7 @@ The curriculum focuses on four core pillars:
 ## 📅 Roadmap & Status
 
 ### Phase 1: RTL Foundations
-- [ ] **S01–S02:** 4-state logic and procedural block contracts.
+- [X] **S01–S02:** 4-state logic and procedural block contracts.
 - [ ] **S03–S04:** Typedefs, packages, and parameterized arrays.
 - [ ] **S05–S06:** 3-always-block FSMs and Vivado synthesis lab.
 - [ ] **S07–S08:** Interfaces, modports, and Vivado Tcl flow.
@@ -46,7 +46,7 @@ The curriculum focuses on four core pillars:
 ---
 
 ## 📂 Repository Structure
-* `Phase_X_.../`: Curriculum phase containers.
-    * `SXX_.../`: Individual sessions containing `/rtl`, `/tb`, and a technical `README.md`.
-    * `z_Milestone_X_.../`: Final designs, schematics, and timing results.
-* `z_common/`: Shared `project_pkg.sv` for types and constants.
+* `phase-X-.../`: Curriculum phase containers.
+    * `sXX-.../`: Individual sessions containing `/rtl`, `/tb`, and a technical `README.md`.
+    * `z-milestone-X-.../`: Final designs, schematics, and timing results.
+* `z-common/`: Shared `project_pkg.sv` for types and constants.
