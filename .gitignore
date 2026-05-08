@@ -5,6 +5,7 @@
 *.out
 *.vvp
 *.vcd
+*.fst
 *.gtkw
 
 # --- deep folders ---
