@@ -21,7 +21,7 @@ The curriculum focuses on four core pillars:
 
 ### Phase 1: RTL Foundations
 - [X] **S01–S02:** 4-state logic and procedural block contracts.
-- [ ] **S03–S04:** Typedefs, packages, and parameterized arrays.
+- [X] **S03–S04:** Typedefs, packages, and parameterized arrays.
 - [ ] **S05–S06:** 3-always-block FSMs and Vivado synthesis lab.
 - [ ] **S07–S08:** Interfaces, modports, and Vivado Tcl flow.
 - [ ] **Milestone 1:** FSM Review & Synthesis Results.
