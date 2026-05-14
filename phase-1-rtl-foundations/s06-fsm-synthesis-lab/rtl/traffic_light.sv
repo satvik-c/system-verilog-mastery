@@ -3,7 +3,7 @@
 module traffic_light
     import project_pkg::*;
 #(
-    parameter COUNT_MAX = 8,
+    parameter COUNT_MAX = 200_000_000, // 2 seconds default
     localparam COUNT_WIDTH = $clog2(COUNT_MAX)
 )(
     input logic clk, rst, input mode_t mode,

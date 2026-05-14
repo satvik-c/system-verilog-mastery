@@ -23,7 +23,7 @@ The curriculum focuses on four core pillars:
 - [X] **S01–S02:** 4-state logic and procedural block contracts.
 - [X] **S03–S04:** Typedefs, packages, and parameterized arrays.
 - [X] **S05–S06:** 3-always-block FSMs and Vivado synthesis lab.
-- [ ] **S07–S08:** Interfaces, modports, and Vivado Tcl flow.
+- [X] **S07–S08:** Interfaces, modports, and Vivado Tcl flow.
 
 ### Phase 2: Verification Essentials
 - [ ] **S09–S10:** Task-based TBs and self-checking golden models.
@@ -43,4 +43,4 @@ The curriculum focuses on four core pillars:
 
 ## 📂 Repository Structure
 * `phase-X-.../`: Curriculum phase containers.
-    * `sXX-.../`: Individual sessions containing `/rtl`, `/tb`, and a technical `README.md`.
+    * `sXX-.../`: Individual sessions containing `/rtl`, `/tb`, and a technical `README.md`. Optional `/build`, `/xdc`, and TCL scripts for Vivado.
