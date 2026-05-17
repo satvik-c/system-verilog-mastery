@@ -26,7 +26,7 @@ The curriculum focuses on four core pillars:
 - [X] **S07–S08:** Interfaces, modports, and Vivado Tcl flow.
 
 ### Phase 2: Verification Essentials
-- [ ] **S09–S10:** Task-based TBs and self-checking golden models.
+- [X] **S09–S10:** Task-based TBs and self-checking golden models.
 - [ ] **S11–S12:** SVA concurrent assertions and functional coverage.
 
 ### Phase 3: Protocols & Hardware
@@ -43,4 +43,4 @@ The curriculum focuses on four core pillars:
 
 ## 📂 Repository Structure
 * `phase-X-.../`: Curriculum phase containers.
-    * `sXX-.../`: Individual sessions containing `/rtl`, `/tb`, and a technical `README.md`. Optional `/build`, `/xdc`, and TCL scripts for Vivado.
+    * `sXX-.../`: Individual sessions containing `/rtl`, `/tb`, and a technical `README.md`. Optional `/vectors`, `/build`, `/xdc`, and TCL scripts for Vivado.
