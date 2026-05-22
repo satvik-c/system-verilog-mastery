@@ -11,8 +11,7 @@ The curriculum focuses on four core pillars:
 
 ## 🛠 Hardware & Tools
 * **Board:** Xilinx Nexys A7-100T (Artix-7)
-* **Linting/Sim:** Verilator & Icarus Verilog
-* **Waveforms:** GTKWave & Surfer
+* **Linting/Sim:** Verilator
 * **Synthesis:** Vivado ML
 
 ---
@@ -27,20 +26,27 @@ The curriculum focuses on four core pillars:
 
 ### Phase 2: Verification Essentials
 - [X] **S09–S10:** Task-based TBs and self-checking golden models.
-- [ ] **S11–S12:** SVA concurrent assertions and functional coverage.
+- [X] **S11–S12:** SVA concurrent assertions and functional coverage.
 
 ### Phase 3: Protocols & Hardware
 - [ ] **S13–S17:** UART TX/RX with 16x oversampling and hardware echo.
-- [ ] **S18–S21:** SPI Master FSM, sensor BFMs, and protocol verification.
-- [ ] **S22:** Timing Analysis (Setup/Hold, WNS, and Fmax).
+- [ ] **S18–S22:** SPI Master FSM, sensor BFMs, protocol verification, and timing analysis.
 
 ### Phase 4: CDC & System Integration
 - [ ] **S23–S24:** I2C Open-drain physics and Master FSM.
-- [ ] **S25:** Metastability and 2-FF/Pulse synchronizers.
-- [ ] **S26–S27:** Async FIFO with Gray-coded pointers and verification.
+- [ ] **S25–S27:** Metastability, 2-FF/Pulse synchronizers, and async FIFO with Gray-coded pointers.
 
 ---
 
 ## 📂 Repository Structure
-* `phase-X-.../`: Curriculum phase containers.
-    * `sXX-.../`: Individual sessions containing `/rtl`, `/tb`, and a technical `README.md`. Optional `/vectors`, `/build`, `/xdc`, and TCL scripts for Vivado.
+All sessions and projects contain `/rtl` and `/tb`. Depending on complexity:
+
+| Folder | Contents |
+|--------|----------|
+| `rtl/` | Synthesizable RTL source |
+| `tb/` | Testbench stimulus modules |
+| `sva/` | SVA bind files |
+| `coverage/` | Coverage bind files |
+| `vectors/` | Generated test vectors |
+| `sim/` | Filelist (`rtl.f`)|
+| `synth/` | XDC constraints and Vivado Tcl scripts |
