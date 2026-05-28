@@ -8,4 +8,9 @@ package project_pkg;
         STOP
     } uart_state_t;
 
+    typedef enum logic {
+        EVEN,
+        ODD
+    } parity_mode_t;
+
 endpackage

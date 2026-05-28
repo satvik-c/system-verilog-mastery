@@ -13,6 +13,8 @@ Sessions 13–17. RTL accumulates across sessions; git commits mark session boun
   - `rtl/uart_tx.sv` — 5-state TX FSM with shift register and parity computation
   - `tb/baud_gen_tb.sv` — tick period verification across parameter sets
   - `tb/uart_tx_tb.sv` — TX testbench with behavioral UART decoder
-- [ ] **S15 — UART RX Design.** 16× oversampling RX with start-bit detection, false-start rejection, mid-bit sampling, framing error flag.
+- [X] **S15 — UART RX Design** — parameterized RX module, 16× oversampling, start-bit detection with false-start rejection, mid-bit sampling, framing and parity error flags.
+  - `rtl/uart_rx.sv` — 5-state RX FSM with mid-bit sampler, shift register, and parity check
+  - `tb/uart_rx_tb.sv` — RX testbench with behavioral UART encoder
 - [ ] **S16 — UART Verification.** TX↔RX loopback testbench, protocol assertions, error injection, functional coverage.
 - [ ] **S17 — UART on Hardware.** Vivado synthesis + implementation, XDC pin mapping to Nexys A7 USB-UART bridge, terminal echo demo.
