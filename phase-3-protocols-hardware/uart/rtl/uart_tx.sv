@@ -1,12 +1,11 @@
-`default_nettype none
-
 module uart_tx
     import project_pkg::*;
 #(
     parameter CLK_HZ = 100_000_000,
     parameter BAUD_RATE = 115_200,
     parameter DATA_BITS = 8,
-    parameter PARITY_BITS = 0,
+    parameter PARITY_BITS = 1,
+    parameter PARITY_MODE = EVEN,
     parameter STOP_BITS = 1,
     localparam CNT_W = $clog2(DATA_BITS)
 )(
@@ -116,7 +115,10 @@ module uart_tx
         else if (inc_counter) counter <= counter + 1;
         if (load_data) shift_register <= tx_data;
         else if (shift_data) shift_register <= shift_register >> 1;
-        if (calculate_parity) parity_bit <= ^tx_data; // EVEN PARITY
+        if (calculate_parity) begin
+            if (PARITY_MODE == EVEN) parity_bit <= ^tx_data;
+            else parity_bit <= ~^tx_data;
+        end
     end
 
 endmodule

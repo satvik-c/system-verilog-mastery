@@ -1,12 +1,10 @@
-`default_nettype none
-
 module uart_rx
     import project_pkg::*;
 #(
     parameter CLK_HZ = 100_000_000,
     parameter BAUD_RATE = 115_200,
     parameter DATA_BITS = 8,
-    parameter PARITY_BITS = 0,
+    parameter PARITY_BITS = 1,
     parameter PARITY_MODE = EVEN,
     parameter STOP_BITS = 1,
     localparam BIT_COUNTER_W = $clog2(DATA_BITS)
@@ -14,8 +12,7 @@ module uart_rx
     input logic clk, rst, rx_in,
     output logic [DATA_BITS-1:0] rx_data,
     output logic rx_valid,
-    output logic rx_framing_error,
-    output logic rx_parity_error
+    output logic rx_error
 );
 
     uart_state_t CS, NS;
@@ -28,6 +25,8 @@ module uart_rx
     logic data_done, stop_done; // no need for parity_done - only 0 or 1 bits
     assign data_done = (bit_counter == DATA_BITS - 1);
     assign stop_done = (bit_counter == STOP_BITS - 1);
+
+    logic rx_parity_error;
 
     baud_gen #(.BAUD_RATE(BAUD_RATE*16)) gen (.*, .baud_tick(os_tick));
 
@@ -88,10 +87,12 @@ module uart_rx
             bit_counter <= '0;
             rx_data <= '0;
             rx_valid <= 0;
+            rx_error <= 0;
             rx_parity_error <= 0;
-            rx_framing_error <= 0;
         end
         else begin
+            rx_valid <= 0;
+            rx_error <= 0;
             // ========= COUNTERS ============= //
 
             if (clear_counters) begin
@@ -117,18 +118,9 @@ module uart_rx
             end
 
             if (update_framing) begin
-                if (rx_in == 0) rx_framing_error <= 1;
-                if (stop_done) begin
-                    rx_valid <= (rx_in == 1) && !rx_framing_error && !rx_parity_error;
-                end
-            end
-
-            // ========= CLEAR FLAGS ON NEW FRAME ============= //
-
-            if (CS == IDLE && os_tick && !rx_in) begin
-                rx_valid <= 0;
+                if (rx_in == 1 && rx_parity_error == 0) rx_valid <= 1;
+                else rx_error <= 1;
                 rx_parity_error <= 0;
-                rx_framing_error <= 0;
             end
         end
     end

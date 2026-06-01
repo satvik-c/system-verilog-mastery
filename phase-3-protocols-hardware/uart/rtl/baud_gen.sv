@@ -1,5 +1,3 @@
-`default_nettype none
-
 module baud_gen
     // Imports;
 #(

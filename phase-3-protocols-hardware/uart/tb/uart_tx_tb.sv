@@ -55,9 +55,6 @@ module uart_tx_tb();
         logic false_start;
         logic framing_error;
 
-        $dumpfile("uart_tx_tb_sim.fst");
-        $dumpvars(0, uart_tx_tb);
-
         rst = 1;
         tx_start = 0;
         repeat (5) @(posedge clk);

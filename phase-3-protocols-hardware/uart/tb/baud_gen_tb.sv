@@ -19,9 +19,6 @@ module baud_gen_tb();
     initial begin
         int expected_ticks;
 
-        $dumpfile("baud_gen_tb_sim.fst");
-        $dumpvars(0, baud_gen_tb);
-
         rst = 1;
         enable = 0;
         repeat (5) @(posedge clk);
