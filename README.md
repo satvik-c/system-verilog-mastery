@@ -11,7 +11,8 @@ The curriculum focuses on four core pillars:
 
 ## 🛠 Hardware & Tools
 * **Board:** Xilinx Nexys A7-100T (Artix-7)
-* **Linting/Sim:** Verilator
+* **Linting:** ModelSim
+* **Simulation/Verification** Altair DSim
 * **Synthesis:** Vivado ML
 
 ---
@@ -46,7 +47,8 @@ All sessions and projects contain `/rtl` and `/tb`. Depending on complexity:
 | `rtl/` | Synthesizable RTL source |
 | `tb/` | Testbench stimulus modules |
 | `sva/` | SVA bind files |
-| `coverage/` | Coverage bind files |
+| `coverage/` | Functional coverage |
+| `reports/` | Coverage reports (`coverage.html`) |
 | `vectors/` | Generated test vectors |
-| `sim/` | Filelist (`rtl.f`)|
+| `sim/` | Compilation filelist (`rtl.f`)|
 | `synth/` | XDC constraints and Vivado Tcl scripts |

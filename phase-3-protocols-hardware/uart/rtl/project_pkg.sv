@@ -5,7 +5,8 @@ package project_pkg;
         START,
         DATA,
         PARITY,
-        STOP
+        STOP,
+        RECOVERY
     } uart_state_t;
 
     typedef enum logic {

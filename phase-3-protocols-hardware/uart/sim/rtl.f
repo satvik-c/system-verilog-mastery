@@ -6,3 +6,5 @@ rtl/uart_rx.sv
 
 sva/uart_tx_sva.sv
 sva/uart_rx_sva.sv
+
+coverage/uart_coverage.sv

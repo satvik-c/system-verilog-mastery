@@ -27,6 +27,7 @@ module uart_rx
     assign stop_done = (bit_counter == STOP_BITS - 1);
 
     logic rx_parity_error;
+    logic prev_rx_in;
 
     baud_gen #(.BAUD_RATE(BAUD_RATE*16)) gen (.*, .baud_tick(os_tick));
 
@@ -38,8 +39,8 @@ module uart_rx
     always_comb begin
         NS = CS;
         case (CS)
-            IDLE: if (os_tick && !rx_in) NS = START;
-            START: if (os_tick && os_counter == 7) begin
+            IDLE: if (!rx_in && prev_rx_in) NS = START;
+            START: if (os_tick && os_counter == 8) begin
                 if (rx_in == 0) NS = DATA;
                 else NS = IDLE;
             end
@@ -48,7 +49,11 @@ module uart_rx
                 else NS = STOP;
             end
             PARITY: if (os_tick && os_counter == 15) NS = STOP;
-            STOP: if (os_tick && os_counter == 15 && stop_done) NS = IDLE;
+            STOP: if (os_tick && os_counter == 15 && stop_done) begin
+                if (rx_in && !rx_parity_error) NS = IDLE;
+                else NS = RECOVERY;
+            end
+            RECOVERY: if (rx_in) NS = IDLE;
             default: NS = CS;
         endcase
     end
@@ -65,16 +70,17 @@ module uart_rx
             IDLE: ;
             START: ;
             DATA: if (os_tick && os_counter == 15) begin
-                load_shift_rx_data = 1;
-                inc_bit_counter = 1;
+                    load_shift_rx_data = 1;
+                    inc_bit_counter = 1;
             end
             PARITY: if (os_tick && os_counter == 15) begin
                 update_parity = 1;
             end
             STOP: if (os_tick && os_counter == 15) begin
-                update_framing = 1;
+                if (stop_done) update_framing = 1;
                 inc_bit_counter = 1;
             end
+            RECOVERY: enable = 0;
             default: ;
         endcase
 
@@ -89,10 +95,12 @@ module uart_rx
             rx_valid <= 0;
             rx_error <= 0;
             rx_parity_error <= 0;
+            prev_rx_in <= 0;
         end
         else begin
             rx_valid <= 0;
             rx_error <= 0;
+            prev_rx_in <= rx_in;
             // ========= COUNTERS ============= //
 
             if (clear_counters) begin

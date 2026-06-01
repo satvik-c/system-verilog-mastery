@@ -33,6 +33,8 @@ module uart_tb();
     bind uart_tx uart_tx_sva tx_assertion (.*);
     bind uart_rx uart_rx_sva rx_assertion (.*);
 
+    UartCoverageTracker cov_tracker;
+
     initial clk = 0;
     always #5 clk = ~clk;
 
@@ -67,6 +69,8 @@ module uart_tb();
         int CLKS_PER_BIT = (num + (den / 2)) / den;
 
         automatic uart_transaction_t txn;
+        cov_tracker.sample(data, baud_offset, corrupt_parity, corrupt_stop);
+
         dirty_send_flag = 1;
         txn.data = data;
         txn.expected_error = (corrupt_parity | corrupt_stop);
@@ -140,17 +144,24 @@ module uart_tb();
     end
 
     initial begin
+        static int baud_offsets[3] = '{-4, 0, 4};
         reset();
+
+        cov_tracker = new();
+
+        false_start();
 
         for (int i = 0; i < 256; i++) begin
             clean_send(8'(i));
         end
 
-        for (int i = 0; i < 256; i++) begin
-            dirty_send(8'(i), 0, 0, 0);
-            dirty_send(8'(i), 0, 0, 1);
-            dirty_send(8'(i), 0, 1, 0);
-            dirty_send(8'(i), 0, 1, 1);
+        repeat (30000) begin
+            dirty_send(
+                8'($urandom_range(0, 255)),
+                baud_offsets[$urandom_range(0, 2)],
+                $urandom_range(0, 1),
+                $urandom_range(0, 1)
+            );
         end
 
         wait(expected_queue.size() == 0);
@@ -161,6 +172,7 @@ module uart_tb();
         $display("================= TESTING COMPLETE =================");
         if (error_count == 0) $display("ALL %0d TESTS PASSED!", check_count);
         else $display("%0d/%0d TESTS FAILED.", error_count, check_count);
+        cov_tracker.print_report();
     end
 
 endmodule

@@ -16,5 +16,11 @@ Sessions 13–17. RTL accumulates across sessions; git commits mark session boun
 - [X] **S15 — UART RX Design** — parameterized RX module, 16× oversampling, start-bit detection with false-start rejection, mid-bit sampling, framing and parity error flags.
   - `rtl/uart_rx.sv` — 5-state RX FSM with mid-bit sampler, shift register, and parity check
   - `tb/uart_rx_tb.sv` — RX testbench with behavioral UART encoder
-- [ ] **S16 — UART Verification.** TX↔RX loopback testbench, protocol assertions, error injection, functional coverage.
+- [X] **S16 — UART Verification** — TX <-> RX loopback scoreboard, queue-based golden model, bound protocol assertions, dirty-frame error injection, functional coverage.
+  - `tb/uart_tb.sv` — loopback TB with transaction-queue scoreboard, 256 exhaustive + 30k randomized dirty-frame stimulus
+  - `sva/uart_tx_sva.sv` — bound TX protocol assertions
+  - `sva/uart_rx_sva.sv` — bound RX protocol assertions
+  - `coverage/uart_coverage.sv` — `dirty_cg` covergroup over data / baud-offset / parity / stop with cross
+  - `rtl/uart_rx.sv` — `RECOVERY` state added for post-framing-error line resync
+  - `reports/` — DSim assertion + functional coverage HTML (`coverage.html`)
 - [ ] **S17 — UART on Hardware.** Vivado synthesis + implementation, XDC pin mapping to Nexys A7 USB-UART bridge, terminal echo demo.

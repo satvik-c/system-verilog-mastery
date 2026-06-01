@@ -51,7 +51,7 @@ module uart_tx
     always_comb begin
         NS = CS;
         case (CS)
-            IDLE: if (tx_start && !tx_busy) NS = START;
+            IDLE: if (tx_start) NS = START;
             START: if (baud_tick) NS = DATA;
             DATA: if (baud_tick && data_done) begin
                 if (PARITY_BITS != 0) NS = PARITY;
@@ -79,7 +79,7 @@ module uart_tx
                 tx_busy = 0;
                 enable = 0;
                 tx_out = 1;
-                if (tx_start && !tx_busy) begin
+                if (tx_start) begin
                     load_data = 1; // DATAPATH
                     calculate_parity = 1; // DATAPATH
                 end
