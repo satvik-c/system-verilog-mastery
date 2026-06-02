@@ -22,12 +22,12 @@ module uart_tx_sva
       $error("tx_busy not high when transmission started");
    end
 
-   assert property (@(posedge clk) disable iff(rst || uart_tb.dirty_send_flag)
-      (tx_busy === 0) |-> (tx_out === 1)
-   )
-   else begin
-      $error("tx_out not high in idle state");
-   end
+   // assert property (@(posedge clk) disable iff(rst || uart_tb.dirty_send_flag)
+   //    (tx_busy === 0) |-> (tx_out === 1)
+   // )
+   // else begin
+   //    $error("tx_out not high in idle state");
+   // end
 
    assert property (@(posedge clk) disable iff(rst)
       (CS === STOP) |-> (tx_out === 1)

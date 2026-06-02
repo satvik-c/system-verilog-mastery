@@ -91,6 +91,7 @@
 *.runs/impl*/*.tcl
 *.runs/impl*/*.bat
 !*.runs/impl*/*utilization*.rpt
+*.bit
 
 ### block design
 */*/bd/*/hdl

@@ -30,7 +30,7 @@ The curriculum focuses on four core pillars:
 - [X] **S11–S12:** SVA concurrent assertions and functional coverage.
 
 ### Phase 3: Protocols & Hardware
-- [ ] **S13–S17:** UART TX/RX with 16x oversampling and hardware echo.
+- [X] **S13–S17:** UART TX/RX with 16x oversampling and hardware echo.
 - [ ] **S18–S22:** SPI Master FSM, sensor BFMs, protocol verification, and timing analysis.
 
 ### Phase 4: CDC & System Integration
@@ -48,7 +48,7 @@ All sessions and projects contain `/rtl` and `/tb`. Depending on complexity:
 | `tb/` | Testbench stimulus modules |
 | `sva/` | SVA bind files |
 | `coverage/` | Functional coverage |
-| `reports/` | Coverage reports (`coverage.html`) |
+| `reports/` | Coverage report, post-impl timing/utilization reports |
 | `vectors/` | Generated test vectors |
-| `sim/` | Compilation filelist (`rtl.f`)|
+| `sim/` | Compilation filelist|
 | `synth/` | XDC constraints and Vivado Tcl scripts |

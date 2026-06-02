@@ -23,4 +23,10 @@ Sessions 13–17. RTL accumulates across sessions; git commits mark session boun
   - `coverage/uart_coverage.sv` — `dirty_cg` covergroup over data / baud-offset / parity / stop with cross
   - `rtl/uart_rx.sv` — `RECOVERY` state added for post-framing-error line resync
   - `reports/` — DSim assertion + functional coverage HTML (`coverage.html`)
-- [ ] **S17 — UART on Hardware.** Vivado synthesis + implementation, XDC pin mapping to Nexys A7 USB-UART bridge, terminal echo demo.
+- [X] **S17 — UART on Hardware** — Vivado synthesis + implementation, XDC pin mapping to Nexys A7 USB-UART bridge, uppercase echo top-level, hardware terminal demo at 115200 8E1.
+  - `rtl/uart_top.sv` — echo wrapper: `uart_rx` + `uart_tx`, uppercase conversion, last-byte LED readout, BTNC reset
+  - `tb/uart_top_tb.sv` — wrapper smoke test with behavioral `rx_in` frame driver
+  - `synth/uart_top.xdc` — Nexys A7 pins: E3 clk, C4 `rx_in`, D4 `tx_out`, N17 reset, `led[7:0]`
+  - `synth/build.tcl` — synth → impl → bitstream flow
+  - `synth/program.tcl` — bitstream programming over WSL hw_server bridge
+  - `reports/` — post-impl utilization and timing reports (75 LUT / 61 FF, WNS +5.075 ns @ 100 MHz)
