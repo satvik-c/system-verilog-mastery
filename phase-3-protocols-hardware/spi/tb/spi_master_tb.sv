@@ -3,7 +3,7 @@
 module spi_master_tb();
 
     parameter SYS_CLK_HZ = 100_000_000;
-    parameter SPI_CLK_HZ = 1_000_000;
+    parameter SPI_CLK_HZ = 20_000_000;
     parameter DATA_WIDTH = 8;
     parameter CPOL = 0;
     parameter CPHA = 0;
@@ -26,7 +26,9 @@ module spi_master_tb();
         .CPHA(CPHA),
         .CS_SETUP_CYCLES(CS_SETUP_CYCLES),
         .CS_HOLD_CYCLES(CS_HOLD_CYCLES)
-    ) dut (.*);
+    ) master (.*);
+
+    adxl362_model slave (.*);
 
     initial clk = 0;
     always #5 clk = ~clk;
@@ -34,37 +36,40 @@ module spi_master_tb();
     task automatic reset();
         rst = 1;
         start = 0;
-        num_bytes = 2;
-        tx_data = 8'h55;
+        num_bytes = 3;
+        tx_data = 8'h0B;
         repeat (5) @(posedge clk);
         #1 rst = 0;
         repeat (5) @(posedge clk);
     endtask
 
-    task automatic send(logic [DATA_WIDTH-1:0] data, logic [7:0] bytes);
-        tx_data = data;
+    task automatic transact(logic [DATA_WIDTH-1:0] cmd, logic [DATA_WIDTH-1:0] addr, logic [DATA_WIDTH-1:0] data, logic [7:0] bytes);
         num_bytes = bytes;
+        tx_data = cmd;
         @(posedge clk);
         #1 start = 1;
         @(posedge clk);
         #1 start = 0;
+        @(posedge clk iff tx_ready);
+        tx_data = addr;
+        @(posedge clk iff tx_ready);
+        if (cmd == 8'h0A) tx_data = data;
+        else tx_data = 8'h00;
+       @(posedge clk iff cs);
     endtask
 
-    logic [DATA_WIDTH-1:0] slave;
-    always @(negedge sclk or negedge cs or rst) begin
-        if (rst) slave <= 8'hAA;
-        else if (!cs) begin
-            miso <= slave[DATA_WIDTH-1];
-            slave <= {slave[DATA_WIDTH-2:0], slave[DATA_WIDTH-1]};
-        end
-    end
-
     initial begin
-
         reset();
-        send(8'h55, 3);
+        transact(8'h0B, 8'h00, 8'h00, 3);
+        transact(8'h0B, 8'h01, 8'h00, 3);
+        transact(8'h0B, 8'h02, 8'h00, 3);
+        transact(8'h0B, 8'h03, 8'h00, 3);
+        transact(8'h0B, 8'h00, 8'h00, 5);
 
-        #30000 $finish;
+        transact(8'h0A, 8'h04, 8'h55, 3);
+        transact(8'h0B, 8'h04, 8'h00, 3);
+
+        #100 $finish;
     end
 
 endmodule
