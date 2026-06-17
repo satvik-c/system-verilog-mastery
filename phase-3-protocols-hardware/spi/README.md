@@ -15,5 +15,8 @@ Sessions 18–22. RTL accumulates across sessions; git commits mark session boun
   - `tb/adxl362_model.sv` — non-synth ADXL362 BFM: command/address decode, register memory, auto-increment, MISO tri-state on deselect
   - `tb/adxl362_model_tb.sv` — standalone BFM unit test: directed register read, manual waveform check
   - `tb/spi_master_tb.sv` — adxl362_model integration: streaming TX, directed register reads (single + auto-increment), write-readback, manual waveform check
-- [ ] **S21: SPI Verification.** Protocol assertions (CPOL/CPHA, CS timing), transaction-level checking against BFM, randomized access, coverage.
+- [X] **S21: SPI Verification** — Bound protocol assertions, transaction scoreboard, randomized access, functional coverage.
+  - `sva/spi_master_sva.sv` — bound SVA suite: CS/SCLK legality, MOSI sample-edge stability, rx_valid pulse
+  - `tb/spi_master_tb.sv` — scoreboard TB: read/write tasks, auto-increment self-check, randomized soak
+  - `coverage/spi_master_coverage.sv` — covergroup: command/address/byte/data coverpoints, read/write crosses
 - [ ] **S22: Timing Deep Dive.** Setup/hold analysis, critical-path identification, Vivado timing reports, SCLK frequency from ADXL362 datasheet.
