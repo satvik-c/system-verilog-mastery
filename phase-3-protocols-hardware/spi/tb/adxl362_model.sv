@@ -52,7 +52,8 @@ module adxl362_model
     end
 
     initial begin
-        for (int i = 0; i <= 8'h1F; i++) begin
+        mem[0] = 8'hAD;
+        for (int i = 1; i <= 8'h1F; i++) begin
             mem[i] = $urandom();
         end
     end

@@ -31,7 +31,7 @@ The curriculum focuses on four core pillars:
 
 ### Phase 3: Protocols & Hardware
 - [X] **S13–S17:** UART TX/RX with 16x oversampling and hardware echo.
-- [ ] **S18–S22:** SPI Master FSM, sensor BFMs, protocol verification, and timing analysis.
+- [X] **S18–S22:** SPI Master FSM, sensor BFMs, protocol verification, and timing analysis.
 
 ### Phase 4: CDC & System Integration
 - [ ] **S23–S24:** I2C Open-drain physics and Master FSM.

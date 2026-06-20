@@ -19,4 +19,8 @@ Sessions 18–22. RTL accumulates across sessions; git commits mark session boun
   - `sva/spi_master_sva.sv` — bound SVA suite: CS/SCLK legality, MOSI sample-edge stability, rx_valid pulse
   - `tb/spi_master_tb.sv` — scoreboard TB: read/write tasks, auto-increment self-check, randomized soak
   - `coverage/spi_master_coverage.sv` — covergroup: command/address/byte/data coverpoints, read/write crosses
-- [ ] **S22: Timing Deep Dive.** Setup/hold analysis, critical-path identification, Vivado timing reports, SCLK frequency from ADXL362 datasheet.
+- [X] **S22: Timing Deep Dive** — Setup/hold and critical-path analysis, WNS/Fmax from routed report; first hardware bring-up reading live ADXL362 DEVID on the Nexys A7.
+- `rtl/spi_top.sv` — bring-up top: spi_master instance, 3-byte DEVID read sequencer, DEVID-to-LED latch
+- `tb/spi_top_tb.sv` — adxl362_model integration, DEVID-read smoke test, manual waveform check
+- `synth/spi_top.xdc` — Nexys A7 constraints: 100 MHz clock, ACL SPI pins, LED/button map
+- `synth/timing_impl.rpt`, `synth/util_impl.rpt` — routed timing (WNS, critical path, Fmax) and post-implementation utilization

@@ -7,4 +7,9 @@ package project_pkg;
         HOLD
     } spi_state_t;
 
+    typedef enum logic {
+        REST,
+        RUN
+    } wrapper_state_t;
+
 endpackage
